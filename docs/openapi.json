@@ -1,0 +1,7968 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "InfraOS API",
+  "description": "Infrastructure Server OS - API centralisee (GPLv3, 100% open source)",
+  "version": "0.1.0"
+ },
+ "paths": {
+  "/api/health": {
+   "get": {
+    "summary": "Health Legacy",
+    "operationId": "health_legacy_api_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/health": {
+   "get": {
+    "summary": "Health V1",
+    "description": "Sante canonique versionnee (spec point 24).",
+    "operationId": "health_v1_api_v1_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/login": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Login",
+    "operationId": "login_api_v1_auth_login_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LoginBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/me": {
+   "get": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Me",
+    "operationId": "me_api_v1_auth_me_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/logout": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Logout",
+    "operationId": "logout_api_v1_auth_logout_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/sessions": {
+   "get": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Sessions",
+    "operationId": "sessions_api_v1_auth_sessions_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/auth/sessions/{sid}": {
+   "delete": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Revoke Session",
+    "operationId": "revoke_session_api_v1_auth_sessions__sid__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/auth/providers": {
+   "get": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Providers",
+    "description": "Etat des sources d'auth (local actif, autres prevus).",
+    "operationId": "providers_api_v1_auth_providers_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/system/info": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Info",
+    "operationId": "info_api_v1_system_info_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/system/health": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Health Detail",
+    "operationId": "health_detail_api_v1_system_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/services": {
+   "get": {
+    "tags": [
+     "services"
+    ],
+    "summary": "List Services",
+    "operationId": "list_services_api_v1_services_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/services/{name}/{action}": {
+   "post": {
+    "tags": [
+     "services"
+    ],
+    "summary": "Service Action",
+    "operationId": "service_action_api_v1_services__name___action__post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     },
+     {
+      "name": "action",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Action"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules": {
+   "get": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "List Modules",
+    "operationId": "list_modules_api_v1_modules_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/modules/{name}": {
+   "get": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Detail",
+    "operationId": "module_detail_api_v1_modules__name__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules/{name}/enable": {
+   "post": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Enable",
+    "operationId": "module_enable_api_v1_modules__name__enable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules/{name}/disable": {
+   "post": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Disable",
+    "operationId": "module_disable_api_v1_modules__name__disable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules/{name}/install": {
+   "post": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Install",
+    "operationId": "module_install_api_v1_modules__name__install_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules/{name}/uninstall": {
+   "post": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Uninstall",
+    "operationId": "module_uninstall_api_v1_modules__name__uninstall_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     },
+     {
+      "name": "confirm",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Confirm"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules/{name}/action": {
+   "post": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Action",
+    "operationId": "module_action_api_v1_modules__name__action_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ActionBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/modules/{name}/dependencies": {
+   "get": {
+    "tags": [
+     "modules"
+    ],
+    "summary": "Module Dependencies",
+    "operationId": "module_dependencies_api_v1_modules__name__dependencies_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/network/interfaces": {
+   "get": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Interfaces",
+    "operationId": "interfaces_api_v1_network_interfaces_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/network/firewall-capabilities": {
+   "get": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Fw Caps",
+    "operationId": "fw_caps_api_v1_network_firewall_capabilities_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/network/routes": {
+   "get": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Routes",
+    "operationId": "routes_api_v1_network_routes_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/dns-resolver": {
+   "get": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Resolver",
+    "operationId": "resolver_api_v1_network_dns_resolver_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/static": {
+   "post": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Static Ip",
+    "operationId": "static_ip_api_v1_network_static_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/StaticBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/vlan": {
+   "post": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Create Vlan",
+    "operationId": "create_vlan_api_v1_network_vlan_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/VlanBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/dhcp": {
+   "post": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Dhcp Ip",
+    "description": "Stage DHCP (DHCP=yes) pour une interface \u2014 admin, audite.",
+    "operationId": "dhcp_ip_api_v1_network_dhcp_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DhcpBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/config/{iface}": {
+   "get": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Staged Config",
+    "description": "Config stagee InfraOS (statique/dhcp) \u2014 prefill du formulaire.",
+    "operationId": "staged_config_api_v1_network_config__iface__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "iface",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Iface"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/network/link": {
+   "post": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Set Link",
+    "description": "Monte/une une interface (ip link set \u2014 allow-list exec).",
+    "operationId": "set_link_api_v1_network_link_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LinkBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/bridge": {
+   "post": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Create Bridge",
+    "operationId": "create_bridge_api_v1_network_bridge_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BridgeBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/network/interface/{name}": {
+   "delete": {
+    "tags": [
+     "network"
+    ],
+    "summary": "Remove Interface",
+    "description": "Supprime la configuration InfraOS d'une interface/VLAN/bridge.",
+    "operationId": "remove_interface_api_v1_network_interface__name__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     },
+     {
+      "name": "confirm",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Confirm"
+      }
+     },
+     {
+      "name": "apply",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Apply"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/users": {
+   "get": {
+    "tags": [
+     "users"
+    ],
+    "summary": "List Users Db",
+    "operationId": "list_users_db_api_v1_users_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "users"
+    ],
+    "summary": "Create User",
+    "operationId": "create_user_api_v1_users_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CreateUser"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/users/system": {
+   "get": {
+    "tags": [
+     "users"
+    ],
+    "summary": "List System Users",
+    "description": "Comptes OS natifs (lecture seule) \u2014 distinct des comptes InfraOS (DB).",
+    "operationId": "list_system_users_api_v1_users_system_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/users/me/password": {
+   "post": {
+    "tags": [
+     "users"
+    ],
+    "summary": "Change Own Password",
+    "operationId": "change_own_password_api_v1_users_me_password_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/routers__users__PasswordBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/users/{username}/disable": {
+   "post": {
+    "tags": [
+     "users"
+    ],
+    "summary": "Disable User",
+    "operationId": "disable_user_api_v1_users__username__disable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Username"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/users/{username}/enable": {
+   "post": {
+    "tags": [
+     "users"
+    ],
+    "summary": "Enable User",
+    "operationId": "enable_user_api_v1_users__username__enable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Username"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/users/me/permissions": {
+   "get": {
+    "tags": [
+     "users"
+    ],
+    "summary": "My Permissions",
+    "operationId": "my_permissions_api_v1_users_me_permissions_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/updates": {
+   "get": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Updates Status",
+    "operationId": "updates_status_api_v1_updates_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/updates/list": {
+   "get": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Updates List",
+    "operationId": "updates_list_api_v1_updates_list_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/updates/security": {
+   "get": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Updates Security",
+    "operationId": "updates_security_api_v1_updates_security_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/updates/package": {
+   "get": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Package Info",
+    "operationId": "package_info_api_v1_updates_package_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/updates/install": {
+   "post": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Install Updates",
+    "operationId": "install_updates_api_v1_updates_install_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InstallBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/updates/history": {
+   "get": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Updates History",
+    "operationId": "updates_history_api_v1_updates_history_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 20,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/updates/sources": {
+   "get": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "List Sources",
+    "operationId": "list_sources_api_v1_updates_sources_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Add Source",
+    "operationId": "add_source_api_v1_updates_sources_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SourceBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/updates/sources/{name}": {
+   "delete": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Delete Source",
+    "operationId": "delete_source_api_v1_updates_sources__name__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/updates/full-upgrade": {
+   "post": {
+    "tags": [
+     "updates"
+    ],
+    "summary": "Full Upgrade",
+    "description": "apt update + full-upgrade \u2014 admin uniquement, audite + historise.",
+    "operationId": "full_upgrade_api_v1_updates_full_upgrade_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/jobs": {
+   "post": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "Enqueue Job",
+    "operationId": "enqueue_job_api_v1_jobs_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EnqueueBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "List Jobs",
+    "operationId": "list_jobs_api_v1_jobs_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 20,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/jobs/{job_id}": {
+   "delete": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "Cancel Job",
+    "operationId": "cancel_job_api_v1_jobs__job_id__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "jobs"
+    ],
+    "summary": "Job Status",
+    "operationId": "job_status_api_v1_jobs__job_id__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/logs/journal": {
+   "get": {
+    "tags": [
+     "logs"
+    ],
+    "summary": "Journal",
+    "operationId": "journal_api_v1_logs_journal_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "service",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "infraos-api",
+       "title": "Service"
+      }
+     },
+     {
+      "name": "lines",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 50,
+       "title": "Lines"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/logs/package": {
+   "get": {
+    "tags": [
+     "logs"
+    ],
+    "summary": "Package",
+    "operationId": "package_api_v1_logs_package_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/logs/firewall": {
+   "get": {
+    "tags": [
+     "logs"
+    ],
+    "summary": "Firewall Rules",
+    "operationId": "firewall_rules_api_v1_logs_firewall_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/config": {
+   "get": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Get Config",
+    "operationId": "get_config_api_v1_config_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "put": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Put Config",
+    "operationId": "put_config_api_v1_config_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConfigPatch"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/config/structure": {
+   "get": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Get Structure",
+    "operationId": "get_structure_api_v1_config_structure_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/config/modules/{name}": {
+   "get": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Get Module Config",
+    "operationId": "get_module_config_api_v1_config_modules__name__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Put Module Config",
+    "operationId": "put_module_config_api_v1_config_modules__name__put",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": true,
+        "title": "Body"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/config/secrets/{name}": {
+   "post": {
+    "tags": [
+     "config"
+    ],
+    "summary": "Set Secret",
+    "operationId": "set_secret_api_v1_config_secrets__name__post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SecretBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/events": {
+   "get": {
+    "tags": [
+     "events"
+    ],
+    "summary": "List Events",
+    "operationId": "list_events_api_v1_events_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 50,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/groups": {
+   "get": {
+    "tags": [
+     "groups"
+    ],
+    "summary": "List Groups",
+    "operationId": "list_groups_api_v1_groups_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "groups"
+    ],
+    "summary": "Create Group",
+    "operationId": "create_group_api_v1_groups_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GroupBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/groups/{name}/members": {
+   "post": {
+    "tags": [
+     "groups"
+    ],
+    "summary": "Add Member",
+    "operationId": "add_member_api_v1_groups__name__members_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MemberBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/groups/{name}/members/{username}": {
+   "delete": {
+    "tags": [
+     "groups"
+    ],
+    "summary": "Del Member",
+    "operationId": "del_member_api_v1_groups__name__members__username__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     },
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Username"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/domain/readiness": {
+   "get": {
+    "tags": [
+     "domain"
+    ],
+    "summary": "Readiness",
+    "operationId": "readiness_api_v1_domain_readiness_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/dns/zones": {
+   "get": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "List Zones",
+    "operationId": "list_zones_api_v1_dns_zones_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Create Zone",
+    "operationId": "create_zone_api_v1_dns_zones_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ZoneBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/dns/zones/{zone}": {
+   "delete": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Delete Zone",
+    "operationId": "delete_zone_api_v1_dns_zones__zone__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "zone",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Zone"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dns/zones/{zone}/records": {
+   "get": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "List Records",
+    "operationId": "list_records_api_v1_dns_zones__zone__records_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "zone",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Zone"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Create Record",
+    "operationId": "create_record_api_v1_dns_zones__zone__records_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "zone",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Zone"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RecordBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dns/records/{rid}": {
+   "delete": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Delete Record",
+    "operationId": "delete_record_api_v1_dns_records__rid__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "rid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Rid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dns/servers": {
+   "get": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Get Servers",
+    "operationId": "get_servers_api_v1_dns_servers_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "put": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Put Servers",
+    "operationId": "put_servers_api_v1_dns_servers_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "additionalProperties": true,
+        "type": "object",
+        "title": "Body"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/dns/apply": {
+   "post": {
+    "tags": [
+     "dns"
+    ],
+    "summary": "Apply",
+    "operationId": "apply_api_v1_dns_apply_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/dhcp/scopes": {
+   "get": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "List Scopes",
+    "operationId": "list_scopes_api_v1_dhcp_scopes_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "Create Scope",
+    "operationId": "create_scope_api_v1_dhcp_scopes_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScopeBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/dhcp/scopes/{sid}": {
+   "delete": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "Delete Scope",
+    "operationId": "delete_scope_api_v1_dhcp_scopes__sid__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dhcp/scopes/{sid}/reservations": {
+   "get": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "List Reservations",
+    "operationId": "list_reservations_api_v1_dhcp_scopes__sid__reservations_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "Create Reservation",
+    "operationId": "create_reservation_api_v1_dhcp_scopes__sid__reservations_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReservationBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dhcp/leases": {
+   "get": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "Get Leases",
+    "operationId": "get_leases_api_v1_dhcp_leases_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 100,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/dhcp/apply": {
+   "post": {
+    "tags": [
+     "dhcp"
+    ],
+    "summary": "Apply",
+    "operationId": "apply_api_v1_dhcp_apply_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/firewall/rules": {
+   "get": {
+    "tags": [
+     "firewall"
+    ],
+    "summary": "List Rules",
+    "operationId": "list_rules_api_v1_firewall_rules_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "firewall"
+    ],
+    "summary": "Create Rule",
+    "operationId": "create_rule_api_v1_firewall_rules_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RuleBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/firewall/rules/{rid}": {
+   "delete": {
+    "tags": [
+     "firewall"
+    ],
+    "summary": "Delete Rule",
+    "operationId": "delete_rule_api_v1_firewall_rules__rid__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "rid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Rid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/firewall/preview": {
+   "get": {
+    "tags": [
+     "firewall"
+    ],
+    "summary": "Preview",
+    "operationId": "preview_api_v1_firewall_preview_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/firewall/apply": {
+   "post": {
+    "tags": [
+     "firewall"
+    ],
+    "summary": "Apply",
+    "operationId": "apply_api_v1_firewall_apply_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/vpn/servers": {
+   "get": {
+    "tags": [
+     "vpn"
+    ],
+    "summary": "List Servers",
+    "operationId": "list_servers_api_v1_vpn_servers_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "vpn"
+    ],
+    "summary": "Create Server",
+    "operationId": "create_server_api_v1_vpn_servers_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ServerBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/vpn/servers/{sid}/peers": {
+   "get": {
+    "tags": [
+     "vpn"
+    ],
+    "summary": "List Peers",
+    "operationId": "list_peers_api_v1_vpn_servers__sid__peers_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "vpn"
+    ],
+    "summary": "Create Peer",
+    "operationId": "create_peer_api_v1_vpn_servers__sid__peers_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PeerBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/vpn/servers/{sid}/apply": {
+   "post": {
+    "tags": [
+     "vpn"
+    ],
+    "summary": "Apply Server",
+    "operationId": "apply_server_api_v1_vpn_servers__sid__apply_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/ipam/networks": {
+   "get": {
+    "tags": [
+     "ipam"
+    ],
+    "summary": "List Networks",
+    "operationId": "list_networks_api_v1_ipam_networks_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "ipam"
+    ],
+    "summary": "Create Network",
+    "operationId": "create_network_api_v1_ipam_networks_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NetworkBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/ipam/networks/{nid}": {
+   "get": {
+    "tags": [
+     "ipam"
+    ],
+    "summary": "Network Usage",
+    "operationId": "network_usage_api_v1_ipam_networks__nid__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "nid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Nid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "ipam"
+    ],
+    "summary": "Delete Network",
+    "operationId": "delete_network_api_v1_ipam_networks__nid__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "nid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Nid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/ipam/networks/{nid}/hosts": {
+   "post": {
+    "tags": [
+     "ipam"
+    ],
+    "summary": "Add Host",
+    "operationId": "add_host_api_v1_ipam_networks__nid__hosts_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "nid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Nid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/HostBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/discovery/scans": {
+   "get": {
+    "tags": [
+     "discovery"
+    ],
+    "summary": "List Scans",
+    "operationId": "list_scans_api_v1_discovery_scans_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "discovery"
+    ],
+    "summary": "Run Scan",
+    "operationId": "run_scan_api_v1_discovery_scans_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScanBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/discovery/scans/{sid}": {
+   "get": {
+    "tags": [
+     "discovery"
+    ],
+    "summary": "Scan Detail",
+    "operationId": "scan_detail_api_v1_discovery_scans__sid__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/discovery/compare": {
+   "get": {
+    "tags": [
+     "discovery"
+    ],
+    "summary": "Compare Scans",
+    "operationId": "compare_scans_api_v1_discovery_compare_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "a",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "A"
+      }
+     },
+     {
+      "name": "b",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "B"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/discovery/arp": {
+   "get": {
+    "tags": [
+     "discovery"
+    ],
+    "summary": "Arp",
+    "operationId": "arp_api_v1_discovery_arp_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/monitoring/current": {
+   "get": {
+    "tags": [
+     "monitoring"
+    ],
+    "summary": "Current",
+    "operationId": "current_api_v1_monitoring_current_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/monitoring/collect": {
+   "post": {
+    "tags": [
+     "monitoring"
+    ],
+    "summary": "Collect",
+    "operationId": "collect_api_v1_monitoring_collect_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/monitoring/history": {
+   "get": {
+    "tags": [
+     "monitoring"
+    ],
+    "summary": "History",
+    "operationId": "history_api_v1_monitoring_history_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "host",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "local",
+       "title": "Host"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 60,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/monitoring/agents": {
+   "get": {
+    "tags": [
+     "monitoring"
+    ],
+    "summary": "List Agents",
+    "operationId": "list_agents_api_v1_monitoring_agents_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "monitoring"
+    ],
+    "summary": "Register Agent",
+    "operationId": "register_agent_api_v1_monitoring_agents_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AgentBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/monitoring/agents/push": {
+   "post": {
+    "tags": [
+     "monitoring"
+    ],
+    "summary": "Agent Push",
+    "description": "Push agent (auth par token agent, pas JWT \u2014 protocole docs/AGENT.md).",
+    "operationId": "agent_push_api_v1_monitoring_agents_push_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PushBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/shares/shares": {
+   "get": {
+    "tags": [
+     "shares"
+    ],
+    "summary": "List Shares",
+    "operationId": "list_shares_api_v1_shares_shares_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "shares"
+    ],
+    "summary": "Create Share",
+    "operationId": "create_share_api_v1_shares_shares_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ShareBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/shares/shares/{sid}": {
+   "delete": {
+    "tags": [
+     "shares"
+    ],
+    "summary": "Delete Share",
+    "operationId": "delete_share_api_v1_shares_shares__sid__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "sid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Sid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/shares/apply": {
+   "post": {
+    "tags": [
+     "shares"
+    ],
+    "summary": "Apply",
+    "operationId": "apply_api_v1_shares_apply_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/backup/jobs": {
+   "get": {
+    "tags": [
+     "backup"
+    ],
+    "summary": "List Jobs",
+    "operationId": "list_jobs_api_v1_backup_jobs_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "backup"
+    ],
+    "summary": "Create Job",
+    "operationId": "create_job_api_v1_backup_jobs_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JobBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/backup/jobs/{jid}/run": {
+   "post": {
+    "tags": [
+     "backup"
+    ],
+    "summary": "Run Backup",
+    "operationId": "run_backup_api_v1_backup_jobs__jid__run_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "jid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Jid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/backup/jobs/{jid}/runs": {
+   "get": {
+    "tags": [
+     "backup"
+    ],
+    "summary": "List Runs",
+    "operationId": "list_runs_api_v1_backup_jobs__jid__runs_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "jid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Jid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/backup/jobs/{jid}/restore": {
+   "post": {
+    "tags": [
+     "backup"
+    ],
+    "summary": "Restore Backup",
+    "operationId": "restore_backup_api_v1_backup_jobs__jid__restore_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "jid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Jid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RestoreBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/backup/cron/apply": {
+   "post": {
+    "tags": [
+     "backup"
+    ],
+    "summary": "Cron Apply",
+    "operationId": "cron_apply_api_v1_backup_cron_apply_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/security/overview": {
+   "get": {
+    "tags": [
+     "security"
+    ],
+    "summary": "Overview",
+    "operationId": "overview_api_v1_security_overview_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/security/failed-logins": {
+   "get": {
+    "tags": [
+     "security"
+    ],
+    "summary": "Failed Logins",
+    "operationId": "failed_logins_api_v1_security_failed_logins_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "hours",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 24,
+       "title": "Hours"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 50,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/security/suspicious": {
+   "get": {
+    "tags": [
+     "security"
+    ],
+    "summary": "Suspicious",
+    "operationId": "suspicious_api_v1_security_suspicious_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "hours",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 24,
+       "title": "Hours"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/security/logs/system": {
+   "get": {
+    "tags": [
+     "security"
+    ],
+    "summary": "Logs System",
+    "operationId": "logs_system_api_v1_security_logs_system_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "lines",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 100,
+       "title": "Lines"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/security/logs/firewall": {
+   "get": {
+    "tags": [
+     "security"
+    ],
+    "summary": "Logs Firewall",
+    "operationId": "logs_firewall_api_v1_security_logs_firewall_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "lines",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 100,
+       "title": "Lines"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/security/integrations": {
+   "get": {
+    "tags": [
+     "security"
+    ],
+    "summary": "Integrations",
+    "operationId": "integrations_api_v1_security_integrations_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/roles": {
+   "get": {
+    "tags": [
+     "roles"
+    ],
+    "summary": "List Roles",
+    "operationId": "list_roles_api_v1_roles_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/roles/users/{username}": {
+   "post": {
+    "tags": [
+     "roles"
+    ],
+    "summary": "Assign Role",
+    "description": "Attribue un role DB supplementaire (superadmin uniquement).",
+    "operationId": "assign_role_api_v1_roles_users__username__post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Username"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssignBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/roles/users/{username}/{role}": {
+   "delete": {
+    "tags": [
+     "roles"
+    ],
+    "summary": "Revoke Role",
+    "operationId": "revoke_role_api_v1_roles_users__username___role__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Username"
+      }
+     },
+     {
+      "name": "role",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Role"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/status": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Status",
+    "operationId": "status_api_v1_identity_status_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain",
+    "operationId": "domain_api_v1_identity_domain_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Uninstall",
+    "description": "\u00a729 : desinstallation avec garde (backup + confirm).",
+    "operationId": "domain_uninstall_api_v1_identity_domain_delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "confirm",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Confirm"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/domain/preflight": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Preflight",
+    "operationId": "domain_preflight_api_v1_identity_domain_preflight_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "domain",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Domain"
+      }
+     },
+     {
+      "name": "netbios",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Netbios"
+      }
+     },
+     {
+      "name": "hostname",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Hostname"
+      }
+     },
+     {
+      "name": "ip",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "",
+       "title": "Ip"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/domain/setup": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Setup",
+    "description": "\u00a73 : provision du domaine (8 etapes) \u2014 admin + confirm explicite.",
+    "operationId": "domain_setup_api_v1_identity_domain_setup_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SetupBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/backup": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Backup",
+    "operationId": "domain_backup_api_v1_identity_domain_backup_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/health": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Health",
+    "operationId": "health_api_v1_identity_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/dns": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Dns",
+    "operationId": "domain_dns_api_v1_identity_domain_dns_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/kerberos": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Kerberos",
+    "operationId": "domain_kerberos_api_v1_identity_domain_kerberos_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/ldap": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Ldap",
+    "operationId": "domain_ldap_api_v1_identity_domain_ldap_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/services": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Services",
+    "operationId": "domain_services_api_v1_identity_domain_services_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/time": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Time",
+    "operationId": "domain_time_api_v1_identity_domain_time_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/domain/join": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Domain Join",
+    "operationId": "domain_join_api_v1_identity_domain_join_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/test/kerberos": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Test Kerberos",
+    "operationId": "test_kerberos_api_v1_identity_test_kerberos_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/KerberosTestBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/test/dns": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Test Dns",
+    "operationId": "test_dns_api_v1_identity_test_dns_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     },
+     {
+      "name": "rtype",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "default": "SRV",
+       "title": "Rtype"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/users": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "List Users",
+    "operationId": "list_users_api_v1_identity_users_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Create User",
+    "operationId": "create_user_api_v1_identity_users_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserCreate"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/users/{name}": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Get User",
+    "operationId": "get_user_api_v1_identity_users__name__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Update User",
+    "operationId": "update_user_api_v1_identity_users__name__put",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UserUpdate"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Delete User",
+    "operationId": "delete_user_api_v1_identity_users__name__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/users/{name}/enable": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Enable User",
+    "operationId": "enable_user_api_v1_identity_users__name__enable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/users/{name}/disable": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Disable User",
+    "operationId": "disable_user_api_v1_identity_users__name__disable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/users/{name}/unlock": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Unlock User",
+    "operationId": "unlock_user_api_v1_identity_users__name__unlock_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/users/{name}/password": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Reset Password",
+    "operationId": "reset_password_api_v1_identity_users__name__password_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/routers__identity__PasswordBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/users/{name}/expiry": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Set Expiry",
+    "operationId": "set_expiry_api_v1_identity_users__name__expiry_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ExpiryBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/groups": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "List Groups",
+    "operationId": "list_groups_api_v1_identity_groups_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Create Group",
+    "operationId": "create_group_api_v1_identity_groups_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GroupCreate"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/groups/{name}": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Get Group",
+    "operationId": "get_group_api_v1_identity_groups__name__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Delete Group",
+    "operationId": "delete_group_api_v1_identity_groups__name__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/groups/{name}/members": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Group Members",
+    "operationId": "group_members_api_v1_identity_groups__name__members_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MembersBody"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/ous": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "List Ous",
+    "operationId": "list_ous_api_v1_identity_ous_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Create Ou",
+    "operationId": "create_ou_api_v1_identity_ous_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/OuCreate"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Delete Ou",
+    "operationId": "delete_ou_api_v1_identity_ous_delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "dn",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Dn"
+      }
+     },
+     {
+      "name": "confirm",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Confirm"
+      }
+     },
+     {
+      "name": "force",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Force"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/ous/move": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Move Object",
+    "operationId": "move_object_api_v1_identity_ous_move_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MoveBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/ous/rename": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Rename Ou",
+    "operationId": "rename_ou_api_v1_identity_ous_rename_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RenameBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/computers": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "List Computers",
+    "operationId": "list_computers_api_v1_identity_computers_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Create Computer",
+    "operationId": "create_computer_api_v1_identity_computers_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ComputerCreate"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/computers/{name}": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Get Computer",
+    "operationId": "get_computer_api_v1_identity_computers__name__get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Delete Computer",
+    "operationId": "delete_computer_api_v1_identity_computers__name__delete",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/computers/{name}/enable": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Enable Computer",
+    "operationId": "enable_computer_api_v1_identity_computers__name__enable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/computers/{name}/disable": {
+   "post": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Disable Computer",
+    "operationId": "disable_computer_api_v1_identity_computers__name__disable_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "name",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Name"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/identity/policies": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Get Policy",
+    "operationId": "get_policy_api_v1_identity_policies_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   },
+   "put": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Set Policy",
+    "operationId": "set_policy_api_v1_identity_policies_put",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PolicyBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    },
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ]
+   }
+  },
+  "/api/v1/identity/audit": {
+   "get": {
+    "tags": [
+     "identity"
+    ],
+    "summary": "Identity Audit",
+    "description": "Audit des actions identity (AuditEvent, action LIKE 'identity.%').",
+    "operationId": "identity_audit_api_v1_identity_audit_get",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 100,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "ActionBody": {
+    "properties": {
+     "action": {
+      "type": "string",
+      "title": "Action"
+     },
+     "params": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Params",
+      "default": {}
+     }
+    },
+    "type": "object",
+    "required": [
+     "action"
+    ],
+    "title": "ActionBody"
+   },
+   "AgentBody": {
+    "properties": {
+     "hostname": {
+      "type": "string",
+      "title": "Hostname"
+     },
+     "os": {
+      "type": "string",
+      "title": "Os",
+      "default": "linux"
+     },
+     "token": {
+      "type": "string",
+      "title": "Token",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "hostname"
+    ],
+    "title": "AgentBody"
+   },
+   "AssignBody": {
+    "properties": {
+     "role": {
+      "type": "string",
+      "title": "Role"
+     }
+    },
+    "type": "object",
+    "required": [
+     "role"
+    ],
+    "title": "AssignBody"
+   },
+   "BridgeBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "cidr": {
+      "type": "string",
+      "title": "Cidr",
+      "default": ""
+     },
+     "confirm": {
+      "type": "boolean",
+      "title": "Confirm",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "BridgeBody"
+   },
+   "ComputerCreate": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "ou": {
+      "type": "string",
+      "title": "Ou",
+      "default": ""
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "ComputerCreate"
+   },
+   "ConfigPatch": {
+    "properties": {
+     "jwt_expire_min": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Jwt Expire Min"
+     }
+    },
+    "type": "object",
+    "title": "ConfigPatch"
+   },
+   "CreateUser": {
+    "properties": {
+     "username": {
+      "type": "string",
+      "title": "Username"
+     },
+     "password": {
+      "type": "string",
+      "title": "Password"
+     },
+     "role": {
+      "type": "string",
+      "title": "Role",
+      "default": "viewer"
+     },
+     "display_name": {
+      "type": "string",
+      "title": "Display Name",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "username",
+     "password"
+    ],
+    "title": "CreateUser"
+   },
+   "DhcpBody": {
+    "properties": {
+     "interface": {
+      "type": "string",
+      "title": "Interface"
+     },
+     "confirm": {
+      "type": "boolean",
+      "title": "Confirm",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "interface"
+    ],
+    "title": "DhcpBody"
+   },
+   "EnqueueBody": {
+    "properties": {
+     "kind": {
+      "type": "string",
+      "title": "Kind",
+      "default": "updates.check"
+     },
+     "payload": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Payload",
+      "default": {}
+     },
+     "sync": {
+      "type": "boolean",
+      "title": "Sync",
+      "default": true
+     }
+    },
+    "type": "object",
+    "title": "EnqueueBody"
+   },
+   "ExpiryBody": {
+    "properties": {
+     "days": {
+      "type": "integer",
+      "title": "Days"
+     }
+    },
+    "type": "object",
+    "required": [
+     "days"
+    ],
+    "title": "ExpiryBody"
+   },
+   "GroupBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     },
+     "role": {
+      "type": "string",
+      "title": "Role",
+      "default": "viewer"
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "GroupBody"
+   },
+   "GroupCreate": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "GroupCreate"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "HostBody": {
+    "properties": {
+     "ip": {
+      "type": "string",
+      "title": "Ip",
+      "default": ""
+     },
+     "mac": {
+      "type": "string",
+      "title": "Mac",
+      "default": ""
+     },
+     "hostname": {
+      "type": "string",
+      "title": "Hostname",
+      "default": ""
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind",
+      "default": "static"
+     },
+     "auto": {
+      "type": "boolean",
+      "title": "Auto",
+      "default": true
+     }
+    },
+    "type": "object",
+    "title": "HostBody"
+   },
+   "InstallBody": {
+    "properties": {
+     "packages": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Packages",
+      "default": []
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind",
+      "default": "packages"
+     }
+    },
+    "type": "object",
+    "title": "InstallBody"
+   },
+   "JobBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "backend": {
+      "type": "string",
+      "title": "Backend",
+      "default": "restic"
+     },
+     "repo": {
+      "type": "string",
+      "title": "Repo",
+      "default": ""
+     },
+     "sources": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Sources",
+      "default": []
+     },
+     "schedule": {
+      "type": "string",
+      "title": "Schedule",
+      "default": ""
+     },
+     "retention": {
+      "type": "string",
+      "title": "Retention",
+      "default": "--keep-daily 7 --keep-weekly 4"
+     },
+     "encrypted": {
+      "type": "boolean",
+      "title": "Encrypted",
+      "default": true
+     },
+     "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "JobBody"
+   },
+   "KerberosTestBody": {
+    "properties": {
+     "username": {
+      "type": "string",
+      "title": "Username"
+     },
+     "password": {
+      "type": "string",
+      "title": "Password"
+     }
+    },
+    "type": "object",
+    "required": [
+     "username",
+     "password"
+    ],
+    "title": "KerberosTestBody"
+   },
+   "LinkBody": {
+    "properties": {
+     "interface": {
+      "type": "string",
+      "title": "Interface"
+     },
+     "up": {
+      "type": "boolean",
+      "title": "Up"
+     }
+    },
+    "type": "object",
+    "required": [
+     "interface",
+     "up"
+    ],
+    "title": "LinkBody"
+   },
+   "LoginBody": {
+    "properties": {
+     "username": {
+      "type": "string",
+      "title": "Username"
+     },
+     "password": {
+      "type": "string",
+      "title": "Password"
+     },
+     "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "local"
+     }
+    },
+    "type": "object",
+    "required": [
+     "username",
+     "password"
+    ],
+    "title": "LoginBody"
+   },
+   "MemberBody": {
+    "properties": {
+     "username": {
+      "type": "string",
+      "title": "Username"
+     }
+    },
+    "type": "object",
+    "required": [
+     "username"
+    ],
+    "title": "MemberBody"
+   },
+   "MembersBody": {
+    "properties": {
+     "add": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Add",
+      "default": []
+     },
+     "remove": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Remove",
+      "default": []
+     }
+    },
+    "type": "object",
+    "title": "MembersBody"
+   },
+   "MoveBody": {
+    "properties": {
+     "dn": {
+      "type": "string",
+      "title": "Dn"
+     },
+     "target": {
+      "type": "string",
+      "title": "Target"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind",
+      "default": "user"
+     }
+    },
+    "type": "object",
+    "required": [
+     "dn",
+     "target"
+    ],
+    "title": "MoveBody"
+   },
+   "NetworkBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "cidr": {
+      "type": "string",
+      "title": "Cidr"
+     },
+     "gateway": {
+      "type": "string",
+      "title": "Gateway",
+      "default": ""
+     },
+     "vlan": {
+      "type": "integer",
+      "title": "Vlan",
+      "default": 0
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "cidr"
+    ],
+    "title": "NetworkBody"
+   },
+   "OuCreate": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "parent": {
+      "type": "string",
+      "title": "Parent",
+      "default": ""
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "OuCreate"
+   },
+   "PeerBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "public_key": {
+      "type": "string",
+      "title": "Public Key",
+      "default": ""
+     },
+     "preshared_key": {
+      "type": "string",
+      "title": "Preshared Key",
+      "default": ""
+     },
+     "allowed_ips": {
+      "type": "string",
+      "title": "Allowed Ips",
+      "default": ""
+     },
+     "endpoint": {
+      "type": "string",
+      "title": "Endpoint",
+      "default": ""
+     },
+     "keepalive": {
+      "type": "integer",
+      "title": "Keepalive",
+      "default": 25
+     },
+     "generate_key": {
+      "type": "boolean",
+      "title": "Generate Key",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "PeerBody"
+   },
+   "PolicyBody": {
+    "properties": {
+     "complexity": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Complexity"
+     },
+     "store_plaintext": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Store Plaintext"
+     },
+     "history_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "History Length"
+     },
+     "min_pwd_length": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Pwd Length"
+     },
+     "min_pwd_age": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Pwd Age"
+     },
+     "max_pwd_age": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Pwd Age"
+     },
+     "account_lockout_duration": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Account Lockout Duration"
+     },
+     "account_lockout_threshold": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Account Lockout Threshold"
+     },
+     "reset_account_lockout_after": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reset Account Lockout After"
+     }
+    },
+    "type": "object",
+    "title": "PolicyBody"
+   },
+   "PushBody": {
+    "properties": {
+     "hostname": {
+      "type": "string",
+      "title": "Hostname"
+     },
+     "token": {
+      "type": "string",
+      "title": "Token"
+     },
+     "metrics": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Metrics",
+      "default": {}
+     }
+    },
+    "type": "object",
+    "required": [
+     "hostname",
+     "token"
+    ],
+    "title": "PushBody"
+   },
+   "RecordBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "rtype": {
+      "type": "string",
+      "title": "Rtype"
+     },
+     "value": {
+      "type": "string",
+      "title": "Value"
+     },
+     "priority": {
+      "type": "integer",
+      "title": "Priority",
+      "default": 0
+     },
+     "ttl": {
+      "type": "integer",
+      "title": "Ttl",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "rtype",
+     "value"
+    ],
+    "title": "RecordBody"
+   },
+   "RenameBody": {
+    "properties": {
+     "old_dn": {
+      "type": "string",
+      "title": "Old Dn"
+     },
+     "new_dn": {
+      "type": "string",
+      "title": "New Dn"
+     }
+    },
+    "type": "object",
+    "required": [
+     "old_dn",
+     "new_dn"
+    ],
+    "title": "RenameBody"
+   },
+   "ReservationBody": {
+    "properties": {
+     "mac": {
+      "type": "string",
+      "title": "Mac"
+     },
+     "ip": {
+      "type": "string",
+      "title": "Ip"
+     },
+     "hostname": {
+      "type": "string",
+      "title": "Hostname",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "mac",
+     "ip"
+    ],
+    "title": "ReservationBody"
+   },
+   "RestoreBody": {
+    "properties": {
+     "snapshot": {
+      "type": "string",
+      "title": "Snapshot",
+      "default": "latest"
+     },
+     "target": {
+      "type": "string",
+      "title": "Target",
+      "default": "/tmp/restore/"
+     }
+    },
+    "type": "object",
+    "title": "RestoreBody"
+   },
+   "RuleBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name",
+      "default": "rule"
+     },
+     "chain": {
+      "type": "string",
+      "title": "Chain",
+      "default": "input"
+     },
+     "action": {
+      "type": "string",
+      "title": "Action",
+      "default": "accept"
+     },
+     "proto": {
+      "type": "string",
+      "title": "Proto",
+      "default": "all"
+     },
+     "src": {
+      "type": "string",
+      "title": "Src",
+      "default": ""
+     },
+     "dst": {
+      "type": "string",
+      "title": "Dst",
+      "default": ""
+     },
+     "dport": {
+      "type": "integer",
+      "title": "Dport",
+      "default": 0
+     },
+     "in_if": {
+      "type": "string",
+      "title": "In If",
+      "default": ""
+     },
+     "out_if": {
+      "type": "string",
+      "title": "Out If",
+      "default": ""
+     },
+     "nat_to": {
+      "type": "string",
+      "title": "Nat To",
+      "default": ""
+     },
+     "log": {
+      "type": "boolean",
+      "title": "Log",
+      "default": false
+     },
+     "position": {
+      "type": "integer",
+      "title": "Position",
+      "default": 100
+     },
+     "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "default": true
+     }
+    },
+    "type": "object",
+    "title": "RuleBody"
+   },
+   "ScanBody": {
+    "properties": {
+     "target": {
+      "type": "string",
+      "title": "Target"
+     },
+     "profile": {
+      "type": "string",
+      "title": "Profile",
+      "default": "ping"
+     }
+    },
+    "type": "object",
+    "required": [
+     "target"
+    ],
+    "title": "ScanBody"
+   },
+   "ScopeBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "subnet": {
+      "type": "string",
+      "title": "Subnet"
+     },
+     "pool_start": {
+      "type": "string",
+      "title": "Pool Start"
+     },
+     "pool_end": {
+      "type": "string",
+      "title": "Pool End"
+     },
+     "gateway": {
+      "type": "string",
+      "title": "Gateway",
+      "default": ""
+     },
+     "dns": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Dns",
+      "default": []
+     },
+     "domain": {
+      "type": "string",
+      "title": "Domain",
+      "default": ""
+     },
+     "lease_valid": {
+      "type": "integer",
+      "title": "Lease Valid",
+      "default": 3600
+     },
+     "lease_max": {
+      "type": "integer",
+      "title": "Lease Max",
+      "default": 7200
+     },
+     "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "subnet",
+     "pool_start",
+     "pool_end"
+    ],
+    "title": "ScopeBody"
+   },
+   "SecretBody": {
+    "properties": {
+     "value": {
+      "type": "string",
+      "title": "Value"
+     }
+    },
+    "type": "object",
+    "required": [
+     "value"
+    ],
+    "title": "SecretBody"
+   },
+   "ServerBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name",
+      "default": "wg0"
+     },
+     "address": {
+      "type": "string",
+      "title": "Address",
+      "default": "10.8.0.1/24"
+     },
+     "port": {
+      "type": "integer",
+      "title": "Port",
+      "default": 51820
+     }
+    },
+    "type": "object",
+    "title": "ServerBody"
+   },
+   "SetupBody": {
+    "properties": {
+     "domain": {
+      "type": "string",
+      "title": "Domain"
+     },
+     "netbios": {
+      "type": "string",
+      "title": "Netbios",
+      "default": ""
+     },
+     "hostname": {
+      "type": "string",
+      "title": "Hostname",
+      "default": ""
+     },
+     "ip": {
+      "type": "string",
+      "title": "Ip",
+      "default": ""
+     },
+     "admin_password": {
+      "type": "string",
+      "title": "Admin Password",
+      "default": ""
+     },
+     "admin_user": {
+      "type": "string",
+      "title": "Admin User",
+      "default": "Administrator"
+     },
+     "dns_backend": {
+      "type": "string",
+      "title": "Dns Backend",
+      "default": "SAMBA_INTERNAL"
+     },
+     "stop_named": {
+      "type": "boolean",
+      "title": "Stop Named",
+      "default": true
+     },
+     "confirm": {
+      "type": "boolean",
+      "title": "Confirm",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "domain"
+    ],
+    "title": "SetupBody"
+   },
+   "ShareBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "path": {
+      "type": "string",
+      "title": "Path"
+     },
+     "comment": {
+      "type": "string",
+      "title": "Comment",
+      "default": ""
+     },
+     "read_only": {
+      "type": "boolean",
+      "title": "Read Only",
+      "default": false
+     },
+     "browsable": {
+      "type": "boolean",
+      "title": "Browsable",
+      "default": true
+     },
+     "guest_ok": {
+      "type": "boolean",
+      "title": "Guest Ok",
+      "default": false
+     },
+     "valid_users": {
+      "type": "string",
+      "title": "Valid Users",
+      "default": ""
+     },
+     "valid_groups": {
+      "type": "string",
+      "title": "Valid Groups",
+      "default": ""
+     },
+     "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "path"
+    ],
+    "title": "ShareBody"
+   },
+   "SourceBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "url": {
+      "type": "string",
+      "title": "Url"
+     },
+     "suite": {
+      "type": "string",
+      "title": "Suite",
+      "default": ""
+     },
+     "components": {
+      "type": "string",
+      "title": "Components",
+      "default": "main"
+     },
+     "key_url": {
+      "type": "string",
+      "title": "Key Url",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "url"
+    ],
+    "title": "SourceBody"
+   },
+   "StaticBody": {
+    "properties": {
+     "interface": {
+      "type": "string",
+      "title": "Interface"
+     },
+     "cidr": {
+      "type": "string",
+      "title": "Cidr"
+     },
+     "gateway": {
+      "type": "string",
+      "title": "Gateway",
+      "default": ""
+     },
+     "confirm": {
+      "type": "boolean",
+      "title": "Confirm",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "interface",
+     "cidr"
+    ],
+    "title": "StaticBody"
+   },
+   "UserCreate": {
+    "properties": {
+     "username": {
+      "type": "string",
+      "title": "Username"
+     },
+     "password": {
+      "type": "string",
+      "title": "Password"
+     },
+     "first_name": {
+      "type": "string",
+      "title": "First Name",
+      "default": ""
+     },
+     "last_name": {
+      "type": "string",
+      "title": "Last Name",
+      "default": ""
+     },
+     "email": {
+      "type": "string",
+      "title": "Email",
+      "default": ""
+     },
+     "description": {
+      "type": "string",
+      "title": "Description",
+      "default": ""
+     },
+     "department": {
+      "type": "string",
+      "title": "Department",
+      "default": ""
+     },
+     "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "default": ""
+     },
+     "ou": {
+      "type": "string",
+      "title": "Ou",
+      "default": ""
+     },
+     "must_change_password": {
+      "type": "boolean",
+      "title": "Must Change Password",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "username",
+     "password"
+    ],
+    "title": "UserCreate"
+   },
+   "UserUpdate": {
+    "properties": {
+     "ou": {
+      "type": "string",
+      "title": "Ou",
+      "default": ""
+     },
+     "password": {
+      "type": "string",
+      "title": "Password",
+      "default": ""
+     },
+     "must_change_password": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Must Change Password"
+     },
+     "expiry_days": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Expiry Days"
+     }
+    },
+    "type": "object",
+    "title": "UserUpdate"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "VlanBody": {
+    "properties": {
+     "interface": {
+      "type": "string",
+      "title": "Interface"
+     },
+     "vlan_id": {
+      "type": "integer",
+      "title": "Vlan Id"
+     },
+     "cidr": {
+      "type": "string",
+      "title": "Cidr",
+      "default": ""
+     },
+     "confirm": {
+      "type": "boolean",
+      "title": "Confirm",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "interface",
+     "vlan_id"
+    ],
+    "title": "VlanBody"
+   },
+   "ZoneBody": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind",
+      "default": "master"
+     },
+     "reverse": {
+      "type": "boolean",
+      "title": "Reverse",
+      "default": false
+     },
+     "ttl": {
+      "type": "integer",
+      "title": "Ttl",
+      "default": 3600
+     },
+     "forwarders": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Forwarders",
+      "default": []
+     },
+     "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "name"
+    ],
+    "title": "ZoneBody"
+   },
+   "routers__identity__PasswordBody": {
+    "properties": {
+     "password": {
+      "type": "string",
+      "title": "Password"
+     },
+     "must_change": {
+      "type": "boolean",
+      "title": "Must Change",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "password"
+    ],
+    "title": "PasswordBody"
+   },
+   "routers__users__PasswordBody": {
+    "properties": {
+     "current_password": {
+      "type": "string",
+      "title": "Current Password",
+      "default": ""
+     },
+     "new_password": {
+      "type": "string",
+      "title": "New Password",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "title": "PasswordBody"
+   }
+  },
+  "securitySchemes": {
+   "HTTPBearer": {
+    "type": "http",
+    "scheme": "bearer"
+   }
+  }
+ }
+}

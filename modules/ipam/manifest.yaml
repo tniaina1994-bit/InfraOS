@@ -1,0 +1,9 @@
+name: ipam
+version: 0.1.0
+title: IPAM
+description: Inventaire sous-reseaux, allocations, conflits
+services: []
+packages: []
+ports: []
+requires: [network]
+container_support: full

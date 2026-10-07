@@ -1,0 +1,9 @@
+name: dhcp
+version: 0.1.0
+title: DHCP
+description: Kea DHCPv4 (Debian 13), scopes, reservations, options
+services: [kea-dhcp4-server]
+packages: [kea-dhcp4-server]
+ports: [67/udp]
+requires: [network]
+container_support: full

@@ -1,0 +1,9 @@
+name: monitoring
+version: 0.1.0
+title: Monitoring
+description: Metriques hotes + services, alertes (Prometheus/node-exporter en phase 2)
+services: []
+packages: [prometheus-node-exporter]
+ports: [9100/tcp]
+requires: []
+container_support: full

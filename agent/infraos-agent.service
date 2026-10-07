@@ -1,0 +1,14 @@
+[Unit]
+Description=InfraOS Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /opt/infraos/agent/infraos_agent.py
+Environment=INFRAOS_AGENT_INTERVAL=60
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

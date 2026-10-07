@@ -1,0 +1,10 @@
+name: firewall
+version: 0.1.0
+title: Firewall
+description: nftables, zones, NAT, deny-by-default sur ISO. Degrade en LXC.
+services: [nftables]
+packages: [nftables]
+ports: []
+requires: [network]
+container_support: degraded
+note: En LXC unprivileged, appliquer les regles au niveau hote Proxmox. Full sur ISO bare-metal/VM.

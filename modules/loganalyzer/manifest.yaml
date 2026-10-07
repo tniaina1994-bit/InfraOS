@@ -1,0 +1,11 @@
+name: loganalyzer
+display_name: Log Analyzer
+version: 0.1.0
+description: Analyse des logs (stats journald, recherches). Lecture seule.
+enabled: true
+dependencies: []
+services: [systemd-journald]
+packages: []
+ports: []
+container_support: full
+debian_native: true

@@ -1,0 +1,9 @@
+name: vpn
+version: 0.1.0
+title: VPN
+description: WireGuard site-a-site + road-warrior
+services: [wg-quick@wg0]
+packages: [wireguard]
+ports: [51820/udp]
+requires: [network, firewall]
+container_support: degraded

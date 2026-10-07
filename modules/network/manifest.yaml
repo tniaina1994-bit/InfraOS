@@ -1,0 +1,9 @@
+name: network
+version: 0.1.0
+title: Réseau
+description: Interfaces, IP statique/DHCP, routes, DNS resolver
+services: [systemd-networkd, NetworkManager]
+packages: [iproute2, net-tools]
+ports: []
+requires: []
+container_support: partial

@@ -1,0 +1,10 @@
+# Configuration persistante InfraOS — /etc/infraos/config.yaml
+# Survit aux reboots et mises a jour (philo: configuration persistante).
+# Secrets: permissions 0600, jamais versionnes.
+data_dir: /var/lib/infraos
+db_url: sqlite:////var/lib/infraos/infraos.db
+jwt_expire_min: 60
+admin_user: admin
+api_host: 127.0.0.1
+api_port: 8000
+# jwt_secret: a definir ici en prod (ou env INFRAOS_JWT_SECRET), 32+ caracteres

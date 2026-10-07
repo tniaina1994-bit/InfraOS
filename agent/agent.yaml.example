@@ -1,0 +1,4 @@
+# agent.yaml — copiez vers /etc/infraos/agent.yaml (0600, jamais versionne)
+server: https://192.168.10.39
+token: "CHANGEZ-MOI-32-caracteres-minimum"
+# intervalle push (s) via env INFRAOS_AGENT_INTERVAL (defaut 60)

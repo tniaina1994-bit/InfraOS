@@ -1,0 +1,11 @@
+name: discovery
+display_name: Network Discovery
+version: 0.1.0
+description: Decouverte reseau (scan nmap, inventaire hotes). Phase ulterieure.
+enabled: true
+dependencies: [network]
+services: []
+packages: [nmap]
+ports: []
+container_support: full
+debian_native: true

@@ -1,0 +1,19 @@
+name: infraos-ci
+on: [push, pull_request]
+jobs:
+  philo-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install (Debian natif, sans Docker)
+        run: pip install -e backend/.[dev,postgres]
+      - name: Tests backend (138 tests)
+        run: python -m pytest backend/tests -v
+      - name: Securite (pas de shell arbitraire, monolithe unique, pas de Docker)
+        run: bash scripts/test/no-arbitrary-shell.sh && bash scripts/test/no-microservice.sh
+      - name: Compat Debian 13 (manifests + packaging)
+        run: bash scripts/test/debian13-check.sh
+      - name: Lint
+        run: ruff check backend agent || true

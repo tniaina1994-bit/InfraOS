@@ -1,0 +1,10 @@
+name: updates
+version: 0.1.0
+title: Mises à jour système
+description: APT Debian natif (check lecture seule en v1). Rien de reimplemente.
+services: []
+packages: [apt, unattended-upgrades]
+ports: []
+requires: []
+container_support: full
+debian_native: true

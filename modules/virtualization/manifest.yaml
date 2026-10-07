@@ -1,0 +1,12 @@
+name: virtualization
+display_name: Virtualization Manager
+version: 0.1.0
+description: Gestion virtualisation (libvirt/KVM sur hote ISO ; degrade en LXC).
+enabled: true
+dependencies: [network]
+services: [libvirtd]
+packages: [libvirt-clients]
+ports: []
+container_support: degraded
+debian_native: true
+note: KVM necessite un hote bare-metal/VM (pas de nested-virt fiable en LXC).

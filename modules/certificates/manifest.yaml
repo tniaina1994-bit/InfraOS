@@ -1,0 +1,11 @@
+name: certificates
+display_name: Certificate Manager
+version: 0.1.0
+description: Certificats TLS (inventaire, suivi expiration, Let's Encrypt phase ulterieure).
+enabled: true
+dependencies: []
+services: []
+packages: [openssl, certbot]
+ports: []
+container_support: full
+debian_native: true

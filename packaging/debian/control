@@ -1,0 +1,18 @@
+Source: infraos
+Section: admin
+Priority: optional
+Maintainer: InfraOS Team
+Build-Depends: debhelper-compat (= 13), python3, dh-python
+Standards-Version: 4.6.2
+
+Package: infraos-core
+Architecture: all
+Depends: ${misc:Depends}, python3, python3-yaml, python3-pydantic, python3-psutil
+Description: InfraOS core library
+ System adapters and module base (Debian 13).
+
+Package: infraos-api
+Architecture: all
+Depends: ${misc:Depends}, infraos-core, python3-fastapi, python3-uvicorn, nginx
+Description: InfraOS API service
+ FastAPI central administration backend + systemd unit.

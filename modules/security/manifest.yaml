@@ -1,0 +1,11 @@
+name: security
+display_name: Security Center
+version: 0.1.0
+description: Securite centralisee (fail2ban, audit, durcissement). Phase ulterieure.
+enabled: true
+dependencies: [network, firewall]
+services: [fail2ban]
+packages: [fail2ban]
+ports: []
+container_support: full
+debian_native: true

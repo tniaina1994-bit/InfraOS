@@ -1,0 +1,10 @@
+name: logs
+version: 0.1.0
+title: Logs et sécurité
+description: journald + /var/log/infraos (audit.log append-only). Natif Debian.
+services: [systemd-journald]
+packages: []
+ports: []
+requires: []
+container_support: full
+debian_native: true

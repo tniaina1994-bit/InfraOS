@@ -1,0 +1,10 @@
+name: system
+version: 0.1.0
+title: Système
+description: Etat hote (OS, services, updates) via systemd/APT natifs. Lecture seule.
+services: [infraos-api]
+packages: []
+ports: []
+requires: []
+container_support: full
+debian_native: true

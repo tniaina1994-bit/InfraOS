@@ -1,0 +1,22 @@
+name: identity
+version: 0.2.0
+title: Identité & Domain Controller
+description: >-
+  Domaine Samba AD DC (provision, DNS, Kerberos), utilisateurs, groupes, OU,
+  ordinateurs, politiques de mot de passe, sante et audit. Ne reimplemente pas AD.
+services:
+  - samba-ad-dc
+packages:
+  - samba
+  - samba-common-bin
+  - krb5-user
+  - chrony
+keep_packages: true
+ports:
+  - 389
+  - 445
+  - 88
+requires: []
+api_prefix: /api/v1/identity
+container_support: full
+debian_native: true

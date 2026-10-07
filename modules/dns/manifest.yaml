@@ -1,0 +1,9 @@
+name: dns
+version: 0.1.0
+title: DNS
+description: Serveur BIND9 authoritatif + forwarder, zones directes/inverses
+services: [named]
+packages: [bind9]
+ports: [53/tcp, 53/udp]
+requires: [network]
+container_support: full
