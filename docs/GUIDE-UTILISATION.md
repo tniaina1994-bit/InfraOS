@@ -3,7 +3,8 @@
 > Pour l'administrateur système/réseau. Chaque section = **mini-formation**
 > sur le service + **pas-à-pas** dans l'interface.
 > Accès : `http://192.168.10.39/` (prod LXC) ou `http://localhost:5173` (dev).
-> Connexion : page **Connexion** — `admin` / `InfraOS-Admin-2026!`
+> Connexion : page **Connexion** — `admin` / mot de passe défini via
+> `INFRAOS_ADMIN_PASSWORD` (défaut `change-me` — à changer au premier démarrage).
 > (changez-le : **Identité** → votre compte → nouveau mot de passe via l'API ;
 > politique : 12 caractères + 1 chiffre minimum).
 > Le menu de gauche n'affiche que vos modules **activés et autorisés**.

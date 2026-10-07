@@ -2,7 +2,7 @@
 # Init Postgres natif InfraOS (LXC Debian 13) + config + migrate + seed.
 # A executer DANS le LXC (via pct exec). Idempotent (role/db existants OK).
 set -euo pipefail
-ADMIN_PW="${INFRAOS_ADMIN_PASSWORD:-InfraOS-Admin-2026!}"
+ADMIN_PW="${INFRAOS_ADMIN_PASSWORD:-change-me}"
 
 if ! su postgres -c "psql -tAc \"SELECT 1 FROM pg_roles WHERE rolname='infraos'\"" | grep -q 1; then
   DBPW=$(openssl rand -hex 16)
@@ -41,4 +41,4 @@ PYBIN=/opt/infraos/venv/bin/python
 "$PYBIN" -m alembic -c alembic.ini upgrade head 2>&1 | tail -n 2
 export INFRAOS_ADMIN_PASSWORD="$ADMIN_PW"
 "$PYBIN" seed_admin.py
-echo "POSTGRES_INIT_OK (admin: admin / mot de passe fourni ou InfraOS-Admin-2026!)"
+echo "POSTGRES_INIT_OK (admin: admin / mot de passe INFRAOS_ADMIN_PASSWORD ou change-me)"
